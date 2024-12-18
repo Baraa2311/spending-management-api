@@ -1,0 +1,33 @@
+http://127.0.0.1:5000/api/user/signup/
+method:Post
+
+header:
+Content-Type application/json
+
+body:
+{
+  "username": "Baraa Abdullah Arram",
+  "email": "baraa2001@gmail.com",
+  "password": "baraa123"
+}
+
+
+http://127.0.0.1:5000/api/user/login/
+Content-Type application/json
+method:Post
+
+header:
+Content-Type application/json
+
+body:
+{
+  "email": "baraa2001@gmail.com",
+  "password": "baraa123"
+}
+
+login returns a token you need to use for authentication 
+
+http://127.0.0.1:5000/api/income/
+header:
+Content-Type application/json 
+Authorization your token

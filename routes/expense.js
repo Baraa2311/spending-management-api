@@ -1,15 +1,24 @@
+const { protect } = require('../middleware/authMiddleware');
 const express = require('express');
+const Expense = require('../models/Expense');
 const router = express.Router();
-const Expense = require('../models/Expense'); 
 
-router.post('/', async (req, res) => {
+// Route to add an expense
+router.post('/', protect, async (req, res) => {
     try {
-        const { type, amount, user } = req.body;
-        const newExpense = new Expense({ type, amount, user });
+        const { type, amount } = req.body;
+
+        // Automatically attach the authenticated user
+        const newExpense = new Expense({
+            type,
+            amount,
+            user: req.user._id, // Use the authenticated user's ID
+        });
+
         await newExpense.save();
         res.status(201).json({
             message: 'Expense added successfully',
-            expense: newExpense
+            expense: newExpense,
         });
     } catch (error) {
         console.error(error);
